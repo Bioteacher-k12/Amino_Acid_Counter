@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amino Acid Atom Counter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Hide arrows on number inputs for a cleaner look */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 md:p-8 font-sans">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-2 text-gray-800">Amino Acid Atom Counter</h2>
+        <p class="mb-6 text-gray-600 text-sm">Enter the number of atoms for each element based on the chemical formula. Cells will turn green when correct.</p>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[600px]">
+                <thead>
+                    <tr class="bg-gray-100 border-b-2 border-gray-300">
+                        <th class="p-3 font-semibold text-gray-700">Amino Acid</th>
+                        <th class="p-3 font-semibold text-gray-700">Carbon</th>
+                        <th class="p-3 font-semibold text-gray-700">Hydrogen</th>
+                        <th class="p-3 font-semibold text-gray-700">Nitrogen</th>
+                        <th class="p-3 font-semibold text-gray-700">Oxygen</th>
+                        <th class="p-3 font-semibold text-gray-700">Total atoms:</th>
+                    </tr>
+                </thead>
+                <tbody id="atom-table">
+                    <!-- Glutamine -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="p-3">
+                            <div class="font-medium text-gray-800">Glutamine</div>
+                            <div class="text-sm text-gray-500">C<sub>5</sub>H<sub>10</sub>N<sub>2</sub>O<sub>3</sub></div>
+                        </td>
+                        <td class="p-3"><input type="number" data-correct="5" data-col="C" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="10" data-col="H" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="N" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="3" data-col="O" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3 font-bold text-gray-700 row-total">= 0</td>
+                    </tr>
+                    <!-- Glycine -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="p-3">
+                            <div class="font-medium text-gray-800">Glycine</div>
+                            <div class="text-sm text-gray-500">C<sub>2</sub>H<sub>5</sub>NO<sub>2</sub></div>
+                        </td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="C" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="5" data-col="H" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="1" data-col="N" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="O" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3 font-bold text-gray-700 row-total">= 0</td>
+                    </tr>
+                    <!-- Lysine -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="p-3">
+                            <div class="font-medium text-gray-800">Lysine</div>
+                            <div class="text-sm text-gray-500">C<sub>6</sub>H<sub>14</sub>N<sub>2</sub>O<sub>2</sub></div>
+                        </td>
+                        <td class="p-3"><input type="number" data-correct="6" data-col="C" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="14" data-col="H" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="N" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="O" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3 font-bold text-gray-700 row-total">= 0</td>
+                    </tr>
+                    <!-- Proline -->
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="p-3">
+                            <div class="font-medium text-gray-800">Proline</div>
+                            <div class="text-sm text-gray-500">C<sub>5</sub>H<sub>9</sub>NO<sub>2</sub></div>
+                        </td>
+                        <td class="p-3"><input type="number" data-correct="5" data-col="C" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="9" data-col="H" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="1" data-col="N" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3"><input type="number" data-correct="2" data-col="O" class="atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors" placeholder="?"></td>
+                        <td class="p-3 font-bold text-gray-700 row-total">= 0</td>
+                    </tr>
+                    <!-- Totals Row -->
+                    <tr class="bg-gray-100 font-bold border-t-2 border-gray-300">
+                        <td class="p-3 text-gray-800 text-right">Totals:</td>
+                        <td class="p-3 text-gray-800" id="col-total-C">0</td>
+                        <td class="p-3 text-gray-800" id="col-total-H">0</td>
+                        <td class="p-3 text-gray-800" id="col-total-N">0</td>
+                        <td class="p-3 text-gray-800" id="col-total-O">0</td>
+                        <td class="p-3 text-blue-700" id="grand-total">= 0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('.atom-input');
+        
+        function calculateTotals() {
+            let grandTotal = 0;
+            let colTotals = { C: 0, H: 0, N: 0, O: 0 };
+            
+            // Calculate row and column totals
+            document.querySelectorAll('tbody tr:not(:last-child)').forEach(row => {
+                let rowTotal = 0;
+                row.querySelectorAll('.atom-input').forEach(input => {
+                    const val = parseInt(input.value) || 0;
+                    rowTotal += val;
+                    colTotals[input.dataset.col] += val;
+                });
+                row.querySelector('.row-total').textContent = '= ' + rowTotal;
+                grandTotal += rowTotal;
+            });
+
+            // Update DOM with totals
+            document.getElementById('col-total-C').textContent = colTotals.C;
+            document.getElementById('col-total-H').textContent = colTotals.H;
+            document.getElementById('col-total-N').textContent = colTotals.N;
+            document.getElementById('col-total-O').textContent = colTotals.O;
+            document.getElementById('grand-total').textContent = '= ' + grandTotal;
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', (e) => {
+                const val = e.target.value;
+                const correct = e.target.dataset.correct;
+                
+                // Clear formatting if empty
+                if (val === '') {
+                    e.target.className = "atom-input w-16 p-2 border rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors";
+                } 
+                // Green for correct
+                else if (val === correct) {
+                    e.target.className = "atom-input w-16 p-2 border border-green-500 bg-green-100 text-green-800 rounded text-center focus:outline-none transition-colors";
+                } 
+                // Red for incorrect
+                else {
+                    e.target.className = "atom-input w-16 p-2 border border-red-400 bg-red-50 text-red-800 rounded text-center focus:outline-none transition-colors";
+                }
+                
+                calculateTotals();
+            });
+        });
+    </script>
+</body>
+</html>
